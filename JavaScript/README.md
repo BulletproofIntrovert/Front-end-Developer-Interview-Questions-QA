@@ -1,4 +1,5 @@
 ## JavaScript Questions:
+==========
 
 ### Explain event delegation
 
@@ -50,7 +51,7 @@ benefit:
 **try**: because function foo(){ } will be first interpreted as a function declare, then the invoke symbol () will not refer that function. `(function foo(){})()` will do.
 
 **google**: function foo(){} is statement. It will not excuted like a expression. also, `()` will be a grouping operate without expression in it, so a SyntaxError will be thown. Any way that make parser think `function` is not statement but an expression will work it a IIFE, like 
-```
+```javascript
 (function foo(){})();
 (function foo(){}());
 var i = function foo(){}();
@@ -82,7 +83,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures
 
 **try**: solove the loop error. 
 
-```
+```javascript
 // problem
 var obj = {};
 for (var i = 0; i < 10; i++ ) {
@@ -110,3 +111,161 @@ obj[0]();
 #### Bonus points for mentioning clean namespacing.
 #### What if your modules are namespace-less?
 
+**try**: module pattern is a way to better orginize JavaScript code. It break code into a bunch of module. It take advantage of IFEE to have private property. Private vaialble is under the namespace of the module in side a IFEE function scope in this case. if use object literal, namespace will be the object.
+If namspace-less, global varible maybe polluted.
+
+
+### How do you organize your code? (module pattern, classical inheritance?)
+ 
+module pattern
+```javascriptjavascript
+var myModule = (function(){
+
+	var privateVar = "abc";
+	var privateMethod = function() {
+		console.log(privateVar);
+	};
+
+	return {
+		setVar: function(str) {
+			privateVar = str;
+		},
+		getVar: function() {
+			return privateVar;
+		},
+		printVar: privateMethod
+	};
+
+})();
+```
+classical inheritance
+```javascript
+function Person (name) {
+	this.name = name;
+}
+Person.prototype.sayMyName = function() {
+	console.log("My name is " + this.name);
+};
+Person.prototype.walk = function() {
+	console.log("I am walking...");
+};
+
+function Student(name){
+	Person.call( this, name );
+}
+
+Student.prototype = new Person();
+// Student.prototype = Object.create(Person.prototype);
+
+Student.prototype.read = function() {
+	console.log("I am reading...");
+};
+
+
+var neil = new Student("neill");
+neil.sayMyName();
+neil.walk();
+neil.read();
+console.log(neil instanceof Student); // true
+console.log(neil instanceof Person); // true
+```
+
+
+### What's the difference between host objects and native objects?
+
+native objects are define by EMCAScript specification, like Object, Array, String
+host objects are defined in the host environment, like windows, history, XMLHttpRequest, document
+
+
+### Difference between: function Person(){}, var person = Person(), and var person = new Person()
+
+function Person(){} is a function statement the declare a function. Or in term of classical inheritance, it is a constructor of a class. 
+var person = Person() is execute the Person function and assign the return value to person. 
+var person  = new Person() will create a new object and make object's prototype to Person's prototype (inheritance), and exec the Person function (constructor) in the scope of the new object. Then assign the return object to person. If not a object return, the new object to will be assigned to person.
+
+
+### What's the difference between .call and .apply?
+call receive arguements as ifinite length, apply receive argument as array.
+
+### explain Function.prototype.bind
+Function.prototype.bind bind the scope (this) of the function to the first arguement.
+
+### When do you optimize your code?
+when we have to deal with old browsers like IE6 IE7.
+
+### Can you explain how inheritance works in JavaScript?
+By prototype, if object did find data in itself, it will check its prototype. If still not found, check prototype's prototype till the final Object object.
+
+### When would you use document.write()?
+#### Most generated ads still utilize document.write() although its use is frowned upon
+dyanmically load some JavsScript files, google analytics tool
+
+### What's the difference between feature detection, feature inference, and using the UA string
+modernizr
+
+### Explain AJAX in as much detail as possible
+use XMLHttpRequest object in JavaScript to send/receive data ayncly to sever. 
+
+### Explain how JSONP works (and how it's not really AJAX)
+JSONP is just dynamically write a <script></script> tag to make a HTTP request with a customed function name in the url, and execute a customized function. server will send back a data (json) wrapped with the provided function name.
+
+### Have you ever used JavaScript templating?
+yes, mustache.js with backbone, jade on express
+
+### If so, what libraries have you used? (Mustache.js, Handlebars etc.)
+Mustache.js
+
+### Explain "hoisting".
+variable and function declaration will moved invisiblly to the top of the containing scope.
+
+### Describe event bubbling.
+
+
+### What's the difference between an "attribute" and a "property"?
+
+### Why is extending built in JavaScript objects not a good idea?
+
+### Why is extending built ins a good idea?
+
+### Difference between document load event and document ready event?
+
+### What is the difference between == and ===?
+
+### Explain how you would get a query string parameter from the browser window's URL.
+
+### Explain the same-origin policy with regards to JavaScript.
+
+### Describe inheritance patterns in JavaScript.
+
+### Make this work: javascript [1,2,3,4,5].duplicate(); // [1,2,3,4,5,1,2,3,4,5]
+```javascript
+// version 1
+Array.prototype.duplicate = function() {
+	var i = 0, 
+		arr = [];
+		for (i = 0;i < this.length; i++) {
+			arr.push(this[i]);
+		};
+		for (i = 0;i < this.length; i++) {
+			arr.push(this[i]);
+		};
+		return arr;
+}
+// version 2
+Array.prototype.duplicate = function() {
+	var i = 0, 
+		arr = this.join("");
+		arr += arr;
+		return arr.split("", function(s){
+			return +s;
+		});
+}
+```
+
+### Describe a strategy for memoization (avoiding calculation repetition) in JavaScript.
+
+### Why is it called a Ternary expression, what does the word "Ternary" indicate?
+
+### What is the arity of a function?
+
+### What is "use strict";? what are the advantages and disadvantages to using it?

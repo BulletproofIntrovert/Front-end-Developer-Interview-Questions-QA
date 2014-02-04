@@ -1,4 +1,5 @@
 ## HTML Questions:
+==========
 
 #### What's a `doctype` do?
 it is an instruction to the web browser about what version of HTML the page is written in. meaning what feature is supported or not.
@@ -45,4 +46,6 @@ GET represents a specific resource. Should not have and side effert like insert/
 POST represent actions on resources, like insert/update/delete. They usually sent from HTML form. Lareg data could be sent by POST. Data is send along with HTTP header, instead of data of GET in the URL.
 
 > http://stackoverflow.com/questions/3477333/what-is-the-difference-between-post-and-get
+
+### Make website faster
 
