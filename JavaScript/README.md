@@ -20,7 +20,7 @@ benefit:
 
 ### Explain how prototypal inheritance works
 
-**try**: assign objectA's prototype to another objectB. it makes inheritance happened. In another word, if property is not found in objectA, it will go to objectB in the use of JavaScript's prototype-chaining machinism. So if still not found in objectB, JavaScript will go to objectB's prototype, say, Object till the end.
+**try**: assign objectA's prototype to another objectB. it makes inheritance happened. In another word, if property is not found in objectA, it will go to objectB in the use of JavaScript's prototype-chaining mechanism, So if still not found in objectB, JavaScript will go to objectB's prototype, say, Object till the end.
 
 
 ### How do you go about testing your JavaScript
@@ -219,23 +219,33 @@ Mustache.js
 variable and function declaration will moved invisiblly to the top of the containing scope.
 
 ### Describe event bubbling.
-
+event bubbling is a JavaScript event propagation in HTML DOM. when a event happened, say click, it will trigger from the element from the bottom up to find the binding element.
 
 ### What's the difference between an "attribute" and a "property"?
+attribute refers to the literal attribute on HTML tags. property refers to properties of DOM object parsed from HTML tags by brower.
 
 ### Why is extending built in JavaScript objects not a good idea?
+It will break the consistency of the default behavior of built in objects. Bad for large project.
 
 ### Why is extending built ins a good idea?
+Well, convenient for developer on small project.
 
 ### Difference between document load event and document ready event?
+load event happend when resources are all loaded. ready event happend when DOM have been parsed by browser.
 
 ### What is the difference between == and ===?
 
+== is true when values can be regards as the same. like 1 == true, undefined == null
+=== is truen when values are truely the same.
+
 ### Explain how you would get a query string parameter from the browser window's URL.
+use regular expression
 
 ### Explain the same-origin policy with regards to JavaScript.
+Ajax cannot request resources other than current domain.
 
 ### Describe inheritance patterns in JavaScript.
+use Ojbect.create() to inheritance a Object, by prototype
 
 ### Make this work: javascript [1,2,3,4,5].duplicate(); // [1,2,3,4,5,1,2,3,4,5]
 ```javascript
@@ -251,21 +261,31 @@ Array.prototype.duplicate = function() {
 		};
 		return arr;
 }
-// version 2
+// version 2en an "attribute" and a "property"?
 Array.prototype.duplicate = function() {
 	var i = 0, 
 		arr = this.join("");
 		arr += arr;
-		return arr.split("", function(s){
-			return +s;
+		return arr.split("").map(function(v){
+			return +v;
 		});
+}
+
+// version 3;
+Array.prototype.duplicate = function() {
+	return this.concat(this);
 }
 ```
 
 ### Describe a strategy for memoization (avoiding calculation repetition) in JavaScript.
+memorization cache a function's result in the object, key as a argument. 
+> http://addyosmani.com/blog/faster-javascript-memoization/
 
 ### Why is it called a Ternary expression, what does the word "Ternary" indicate?
+three, receiving three arguments for conditional operator
 
 ### What is the arity of a function?
+length...
 
 ### What is "use strict";? what are the advantages and disadvantages to using it?
+throw error when old feature of JavaScript is used. Better for code quality, avoid deprecated feature. disadvantages for less compatible.
